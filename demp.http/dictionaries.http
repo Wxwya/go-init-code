@@ -1,0 +1,42 @@
+### 创建字典
+post http://localhost:9898/api/dictionaries/generateDictionary
+Content-Type: application/json
+
+{   
+   "code":2,
+   "value":"React",
+   "description":"React 框架"
+}
+
+### 更新字典
+post http://localhost:9898/api/dictionaries/generateDictionary
+Content-Type: application/json
+
+{   "id":1,
+   "code":2,
+   "value":"React111",
+   "description":"React 框架"
+}
+
+### 删除字典
+post http://localhost:9898/api/dictionaries/deleteDictionary
+Content-Type: application/json
+
+{ 
+    "ids":[1]  
+}
+
+### 查询字典信息
+get http://localhost:9898/api/dictionaries/getDictionaryInfo?id=1
+
+### 查询字典列表
+post http://localhost:9898/api/dictionaries/getDictionaryList
+Content-Type: application/json
+
+{   
+    "pageNum":1,
+    "pageSize":10,
+    "code":""
+}
+
+

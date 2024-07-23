@@ -66,7 +66,7 @@ func JwtToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token, err := c.Cookie("xwya_admin_token")
 		if err != nil {
-			msgjson.ErrorMsg(c, msg.Error_TokenExist) // token 错误
+			msgjson.HandleError(c, msg.Error_TokenExist) // token 错误
 			c.Abort()
 			return
 		}
@@ -74,21 +74,21 @@ func JwtToken() gin.HandlerFunc {
 		// 将 Token 头分成两部分，"Bearer" 和 Token 字符串
 		checkToken := strings.SplitN(token, " ", 2)
 		if len(checkToken) != 2 || checkToken[0] != "Bearer" {
-			msgjson.ErrorMsg(c, msg.Error_TokenMalformed) // token 格式错误
+			msgjson.HandleError(c, msg.Error_TokenMalformed) // token 格式错误
 			c.Abort()
 			return
 		}
 		// 验证 Token 并获取声明
 		key := CheckToken(checkToken[1])
 		if key == nil {
-			msgjson.ErrorMsg(c, msg.Error_TokenInvalid) // token 无效
+			msgjson.HandleError(c, msg.Error_TokenInvalid) // token 无效
 			c.Abort()
 			return
 		}
 
 		// 检查 Token 是否已过期
 		if time.Now().Unix() > key.ExpiresAt {
-			msgjson.ErrorMsg(c, msg.Error_TokenTimeout) // token 过期
+			msgjson.HandleError(c, msg.Error_TokenTimeout) // token 过期
 			c.Abort()
 			return
 		}

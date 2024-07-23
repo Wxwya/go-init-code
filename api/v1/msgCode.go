@@ -11,34 +11,36 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GenerateProject(c *gin.Context) {
-	var project model.Project
-	if flag := utils.ShouldBindJSON(c, project); !flag {
+func GenerateMsgCode(c *gin.Context) {
+	var msgCode model.MsgCode
+	if flag := utils.ShouldBindJSON(c, &msgCode); !flag {
 		return
 	}
-	if err := server.GenerateProject(&project); err != nil {
+	if err := server.GenerateMsgCode(&msgCode); err != nil {
 		msgjson.HandleServerError(c)
 		return
 	}
 	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
 }
 
-func DeleteProject(c *gin.Context) {
+func DeleteMsgCode(c *gin.Context) {
 	var ids map[string][]int
 	c.ShouldBindJSON(&ids)
-	if err := server.DeleteProject(&ids); err != nil {
+
+	if err := server.DeleteMsgCode(&ids); err != nil {
 		msgjson.HandleServerError(c)
 		return
 	}
 	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
 }
 
-func GetProjectList(c *gin.Context) {
-	var page repository.QueryProject
+func GetMsgCodeList(c *gin.Context) {
+
+	var page repository.QueryMsgCode
 	if flag := utils.ShouldBindJSON(c, &page); !flag {
 		return
 	}
-	data, total, err := server.GetProjectList(&page)
+	data, total, err := server.GetMsgCodeList(&page)
 	if err != nil {
 		msgjson.HandleServerError(c)
 		return
@@ -49,14 +51,13 @@ func GetProjectList(c *gin.Context) {
 	})
 }
 
-func GetProjectInfo(c *gin.Context) {
-	// 获取地址上的值
+func GetMsgCodeInfo(c *gin.Context) {
 	id := c.Query("id")
 	if id == "" {
 		msgjson.HandleError(c, msg.Error)
 		return
 	}
-	data, err := server.GetProjectInfo(id)
+	data, err := server.GetMsgCodeInfo(id)
 	if code := utils.IsErrRecordNotFound(err); code != msg.Success {
 		msgjson.HandleError(c, code)
 		return

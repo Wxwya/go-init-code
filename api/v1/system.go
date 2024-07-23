@@ -17,23 +17,23 @@ func Login(c *gin.Context) {
 	c.ShouldBindJSON(&info)
 	code, user := server.ValidateUser(info.Account, info.Password)
 	if code != msg.Success {
-		msgjson.ErrorMsg(c, code)
+		msgjson.HandleError(c, code)
 		return
 	}
 	token, code := m.SetToken(*user)
 	if code != msg.Success {
 		c.Set("err", "生成token失败")
-		msgjson.ServerErrorMsg(c)
+		msgjson.HandleServerError(c)
 		return
 	}
 	c.SetCookie("xwya_admin_token", "Bearer "+token, int(time.Now().Add(time.Hour*72).Unix()), "/", "", false, true)
-	msgjson.SuccessMsg(c, "ok", nil)
+	msgjson.HandleSuccess(c, "ok", nil)
 }
 
 func BackloginOut(c *gin.Context) {
 	c.SetCookie("xwya_admin_token", "", -1, "/", "", false, true)
 	// c.JSON(http.StatusOK, gin.H{,"status": "ok"})
-	msgjson.SuccessMsg(c, "退出成功", nil)
+	msgjson.HandleSuccess(c, "退出成功", nil)
 }
 
 // 上传单文件
@@ -53,10 +53,10 @@ func UpFile(c *gin.Context) {
 	err := c.SaveUploadedFile(file, newFileName)
 
 	if err != nil {
-		msgjson.ErrorMsg(c, msg.Error_UploadFile)
+		msgjson.HandleError(c, msg.Error_UploadFile)
 		return
 	}
-	msgjson.SuccessMsg(c, "上传成功", map[string]interface{}{
+	msgjson.HandleSuccess(c, "上传成功", map[string]interface{}{
 		"url": newFileName,
 	})
 }
@@ -72,10 +72,10 @@ func UpManyFile(c *gin.Context) {
 		newFileName := utils.FilePath + fileName
 		err := c.SaveUploadedFile(file, newFileName)
 		if err != nil {
-			msgjson.ErrorMsg(c, msg.Error_UploadFile)
+			msgjson.HandleError(c, msg.Error_UploadFile)
 			return
 		}
 	}
-	msgjson.SuccessMsg(c, "上传成功", nil)
+	msgjson.HandleSuccess(c, "上传成功", nil)
 
 }

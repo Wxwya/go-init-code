@@ -13,46 +13,46 @@ import (
 
 func GenerateDictionary(c *gin.Context) {
 	var dictionaries model.Dictionaries
-	if err := c.ShouldBindJSON(&dictionaries); err != nil {
-		str := utils.TranslateValidationError(err)
-		msgjson.ErrorValidateMsg(c, str)
+	if flag := utils.ShouldBindJSON(c, &dictionaries); !flag {
 		return
 	}
 	if err := server.GenerateDictionary(&dictionaries); err != nil {
-		msgjson.ServerErrorMsg(c)
+		msgjson.HandleServerError(c)
 		return
 	}
-	msgjson.SuccessMsg(c, msg.GetMsg(msg.Success), nil)
+	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
 }
 func DeleteDictionary(c *gin.Context) {
 	var ids map[string][]int
 	c.ShouldBindJSON(&ids)
 	if err := server.DeleteDictionary(ids); err != nil {
-		msgjson.ServerErrorMsg(c)
+		msgjson.HandleServerError(c)
 		return
 	}
-	msgjson.SuccessMsg(c, msg.GetMsg(msg.Success), nil)
+	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
 }
 func GetDictionaryList(c *gin.Context) {
 	var page repository.QueryDictionary
-	c.ShouldBindJSON(&page)
-	data, total, err := server.GetDictionaryList(&page)
-	if err != nil {
-		msgjson.ServerErrorMsg(c)
+	if flag := utils.ShouldBindJSON(c, &page); !flag {
 		return
 	}
-	msgjson.SuccessMsg(c, msg.GetMsg(msg.Success), map[string]interface{}{"data": data, "total": total})
+	data, total, err := server.GetDictionaryList(&page)
+	if err != nil {
+		msgjson.HandleServerError(c)
+		return
+	}
+	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), map[string]interface{}{"data": data, "total": total})
 }
 func GetDictionaryInfo(c *gin.Context) {
 	id := c.Query("id")
 	if id == "" {
-		msgjson.ErrorMsg(c, msg.Error)
+		msgjson.HandleError(c, msg.Error)
 		return
 	}
 	data, err := server.GetDictionaryInfo(id)
-	if err != nil {
-		msgjson.ServerErrorMsg(c)
+	if code := utils.IsErrRecordNotFound(err); code != msg.Success {
+		msgjson.HandleError(c, code)
 		return
 	}
-	msgjson.SuccessMsg(c, msg.GetMsg(msg.Success), data)
+	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), data)
 }

@@ -28,6 +28,7 @@ func InitRouter() {
 	initDictionariesRouter(router)
 	initProjectRouter(router)
 	initFormRouter(router)
+	initMsgCodeRouter(router)
 	server := &http.Server{
 		Addr:    utils.Prot,
 		Handler: r,

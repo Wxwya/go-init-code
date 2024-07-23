@@ -19,3 +19,9 @@ type QueryForm struct {
 	FormName  string `json:"form_name"`
 	global.Page
 }
+
+type QueryMsgCode struct {
+	Key  string `json:"key"`
+	Code uint   `json:"code"`
+	global.Page
+}

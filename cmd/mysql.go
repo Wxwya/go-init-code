@@ -54,8 +54,28 @@ func InitMysql() {
 
 // 数据库迁移
 func migrate() {
+	//
 
-	server.Db.AutoMigrate(&model.User{}, &model.Dictionaries{}, &model.Project{}, &model.Form{}, &model.Field{})
+	// &model.Repository{},
+	// &model.Form{},
+	// &model.Field{},
+	// &model.GlobalModel{},
+
+	// &model.GlobalModel{},
+	// &model.Repository{},
+
+	server.Db.AutoMigrate(
+		&model.User{},
+		&model.Dictionaries{},
+		&model.Project{},
+		&model.Repository{},
+		&model.Form{},
+		&model.GlobalModel{},
+		&model.Field{},
+		&model.MsgCode{},
+		&model.Controller{},
+		&model.ControllerProcessor{},
+	)
 	var count int64
 	server.Db.Model(&model.User{}).Count(&count)
 	// 如果用户表为空，则创建用户

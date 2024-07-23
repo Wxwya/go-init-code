@@ -15,7 +15,7 @@ type Response struct {
 	Token string      `json:"token,omitempty"`
 }
 
-func SuccessMsg(c *gin.Context, msg string, data interface{}) {
+func HandleSuccess(c *gin.Context, msg string, data interface{}) {
 	c.JSON(http.StatusOK, Response{
 		Code: http.StatusOK,
 		Msg:  msg,
@@ -23,28 +23,28 @@ func SuccessMsg(c *gin.Context, msg string, data interface{}) {
 	})
 }
 
-func ErrorMsg(c *gin.Context, err int) {
+func HandleError(c *gin.Context, err int) {
 	c.JSON(http.StatusOK, Response{
 		Code: err,
 		Msg:  msg.GetMsg(err),
 	})
 }
 
-func ErrorValidateMsg(c *gin.Context, err string) {
+func HandleValidateError(c *gin.Context, err string) {
 	c.JSON(http.StatusBadRequest, Response{
 		Code: http.StatusBadRequest,
 		Msg:  err,
 	})
 }
 
-func ServerErrorMsg(c *gin.Context) {
+func HandleServerError(c *gin.Context) {
 	c.JSON(http.StatusInternalServerError, Response{
 		Code: http.StatusInternalServerError,
 		Msg:  "服务器错误",
 	})
 }
 
-func LoginMsg(c *gin.Context, msg string, token string) {
+func HandleLoginResponse(c *gin.Context, msg string, token string) {
 	c.JSON(http.StatusOK, Response{
 		Code:  http.StatusOK,
 		Msg:   msg,

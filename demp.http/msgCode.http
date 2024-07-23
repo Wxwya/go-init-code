@@ -1,0 +1,20 @@
+### 创建msgCode 
+post http://localhost:9898/api/msgCode/generateMsgCode
+Content-Type: application/json
+
+{   
+   "key":"NoPermission",
+   "code":401,
+   "msg":"No permission"
+}
+###更新msgCode
+
+post http://localhost:9898/api/msgCode/generateMsgCode
+Content-Type: application/json
+
+{   
+    "id":6,
+    "key":"Unauthorized",
+   "code":401,
+   "msg":"Unauthorized"
+}

@@ -4,11 +4,13 @@ import (
 	"xwya/model"
 	"xwya/model/repository"
 	"xwya/server/dop"
+
+	"gorm.io/gorm"
 )
 
 func GenerateProject(p *model.Project) error {
 	if p.ID == 0 {
-		return Db.Debug().Create(p).Error
+		return Db.Create(p).Error
 	}
 	return Db.Model(&model.Project{}).Where(&model.Project{ID: p.ID}).Updates(p).Error
 }
@@ -27,7 +29,7 @@ func GetProjectList(queryInfo *repository.QueryProject) (*[]model.Project, *int6
 		return &projects, &total, err
 	}
 
-	db := Db.Where("project_name like ? and sql_host like ?  ", "%"+queryInfo.ProjectName+"%", "%"+queryInfo.SqlHost+"%")
+	db := Db.Joins("left join dictionaries on project.frame_id = dictionaries.id").Select("project.*,dictionaries.value as frame_name").Where("project_name like ? and sql_host like ?  ", "%"+queryInfo.ProjectName+"%", "%"+queryInfo.SqlHost+"%")
 	dop.AddPagination(db, queryInfo.PageNum, queryInfo.PageSize, "desc")
 	if err := db.Find(&projects).Error; err != nil {
 		return &projects, &total, err
@@ -37,7 +39,8 @@ func GetProjectList(queryInfo *repository.QueryProject) (*[]model.Project, *int6
 
 func GetProjectInfo(id string) (*model.Project, error) {
 	var project model.Project
-	if err := Db.Where("id = ?", id).First(&project).Error; err != nil {
+	db := Db.Session(&gorm.Session{SkipHooks: true})
+	if err := db.Where("id = ?", id).First(&project).Error; err != nil {
 		return nil, err
 	}
 	return &project, nil

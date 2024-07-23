@@ -1,0 +1,46 @@
+### 创建项目信息
+post http://localhost:9898/api/project/generateProject 
+Content-Type: application/json
+
+{
+
+    "project_name":"测试项目3",
+    "description":"测试项目3",
+    "sql_host":"127.0.0.1",
+    "sql_prot":"3306",
+    "sql_basename":"csxm",
+    "sql_user":"root",
+    "sql_password":"123456",
+    "frame_id":1
+}
+
+### 更新项目信息
+post http://localhost:10101/generateProject
+Content-Type: application/json
+
+{   "id":8,
+    "sql_user":"roots1112222"
+}
+
+### 删除项目信息
+
+post http://localhost:9898/api/project/deleteProject
+Content-Type: application/json
+
+{  
+    "ids":[2]
+}
+
+### 查询项目列表
+post http://localhost:9898/api/project/getProjectList
+Content-Type: application/json
+
+{
+    "pageNum":1,
+    "pageSize":10,
+    "project_name":"",
+    "sql_host":""
+}
+
+### 获取项目信息
+get http://localhost:9898/api/project/getProjectInfo?id=2

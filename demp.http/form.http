@@ -1,0 +1,41 @@
+### 创建表
+post http://localhost:9898/api/form/generateForm
+Content-Type: application/json
+
+{
+
+    "project_id":2,
+    "form_comment":"这是一张用户表",
+    "form_name":"user"
+}
+
+### 更新表
+post http://localhost:9898/api/form/generateForm
+Content-Type: application/json
+
+{   "id":1,
+    "form_name":"user"
+}
+
+### 删除表
+
+post http://localhost:9898/api/form/deleteForm
+Content-Type: application/json
+
+{  
+    "ids":[2]
+}
+
+### 查询表列表
+post http://localhost:9898/api/form/getFormList
+Content-Type: application/json
+
+{
+    "pageNum":1,
+    "pageSize":10,
+    "project_id":2
+   
+}
+
+### 获取表信息
+get http://localhost:9898/api/form/getFormInfo?id=3
