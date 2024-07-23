@@ -1,7 +1,5 @@
 package cmd
 
-import "xwya/router"
-
 func Start() {
 	defer CloseMysql()
 	// defer CloseRedis()
@@ -10,7 +8,6 @@ func Start() {
 	// InitRedis()
 	InitLogger()
 	InitValidate()
-
-	router.InitRouter()
+	InitHttp()
 
 }

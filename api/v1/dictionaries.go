@@ -56,3 +56,8 @@ func GetDictionaryInfo(c *gin.Context) {
 	}
 	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), data)
 }
+
+func Cheshi(c *gin.Context) {
+	data := server.Cheshi()
+	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), data)
+}

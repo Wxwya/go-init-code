@@ -1,0 +1,49 @@
+### 生成逻辑函数
+post http://localhost:9898/api/controllerProcessor/generateControllerProcessor
+Content-Type: application/json
+
+{   
+   "func_name":"add122223332",
+   "success_code_id":1,
+   "error_code_id":2,
+   "method":"post",
+   "method_id":1,
+   "is_hooks":false,
+   "join_method":"query",
+   "params":["id","name"],
+   "controller_id":1,
+   "controller_func_code":"",
+   "server_func_code":"",
+   "func_description":"添加"
+}
+
+### 更新逻辑函数
+post http://localhost:9898/api/controllerProcessor/generateControllerProcessor
+Content-Type: application/json
+
+{   "id":1,
+   "version":"v1",
+   "name":"cskq",
+   "description":"测试控制器"
+}
+
+### 删除逻辑函数
+post http://localhost:9898/api/controllerProcessor/deleteControllerProcessor
+Content-Type: application/json
+{ 
+    "ids":[1]  
+}
+
+### 查询逻辑函数
+get http://localhost:9898/api/controllerProcessor/getControllerProcessorInfo?id=1
+
+### 查询逻辑函数列表
+post http://localhost:9898/api/controllerProcessor/getControllerProcessorList
+Content-Type: application/json
+
+{   "is_hooks":true,
+    "pageNum":1,
+    "pageSize":10
+}
+
+

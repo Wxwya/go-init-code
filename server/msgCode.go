@@ -21,13 +21,15 @@ func GetMsgCodeList(queryInfo *repository.QueryMsgCode) (*[]model.MsgCode, *int6
 	// 查询条件
 	var msgCodes []model.MsgCode
 	var total int64
-	if err := Db.Model(&model.MsgCode{}).
-		Where("key like ? and sql_host = ?  ", "%"+queryInfo.Key+"%", queryInfo.Code).
-		Count(&total).Error; err != nil {
+	totalDb := Db.Model(&model.MsgCode{}).Where("`key` like ?  ", "%"+queryInfo.MsgKey+"%")
+	db := Db.Where("msg_key like ? ", "%"+queryInfo.MsgKey+"%")
+
+	dop.IsInt(totalDb, "code", queryInfo.Code)
+	dop.IsInt(db, "code", queryInfo.Code)
+	if err := totalDb.Count(&total).Error; err != nil {
 		return &msgCodes, &total, err
 	}
 
-	db := Db.Where("key like ? and sql_host = ?  ", "%"+queryInfo.Key+"%", queryInfo.Code)
 	dop.AddPagination(db, queryInfo.PageNum, queryInfo.PageSize, "desc")
 	if err := db.Find(&msgCodes).Error; err != nil {
 		return &msgCodes, &total, err

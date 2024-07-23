@@ -12,11 +12,11 @@ import (
 )
 
 func GenerateForm(c *gin.Context) {
-	var project model.Form
-	if flag := utils.ShouldBindJSON(c, &project); !flag {
+	var form model.Form
+	if flag := utils.ShouldBindJSON(c, &form); !flag {
 		return
 	}
-	if err := server.GenerateForm(&project); err != nil {
+	if err := server.GenerateForm(&form); err != nil {
 		msgjson.HandleServerError(c)
 		return
 	}

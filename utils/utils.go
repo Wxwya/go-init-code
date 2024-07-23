@@ -20,6 +20,7 @@ func IsErrRecordNotFound(err error) int {
 }
 func ShouldBindJSON(c *gin.Context, data interface{}) bool {
 	if err := c.ShouldBindJSON(&data); err != nil {
+
 		str := TranslateValidationError(err)
 		msgjson.HandleValidateError(c, str)
 		return false

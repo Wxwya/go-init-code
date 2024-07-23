@@ -13,7 +13,7 @@ import (
 
 func GenerateProject(c *gin.Context) {
 	var project model.Project
-	if flag := utils.ShouldBindJSON(c, project); !flag {
+	if flag := utils.ShouldBindJSON(c, &project); !flag {
 		return
 	}
 	if err := server.GenerateProject(&project); err != nil {

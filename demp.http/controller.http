@@ -1,0 +1,41 @@
+### 创建控制器
+post http://localhost:9898/api/controller/generateController
+Content-Type: application/json
+
+{   
+   "version":"",
+   "name":"",
+   "description":"测试控制器"
+}
+
+### 更新控制器
+post http://localhost:9898/api/controller/generateController
+Content-Type: application/json
+
+{   "id":1,
+   "version":"v1",
+   "name":"cskq",
+   "description":"测试控制器"
+}
+
+### 删除控制器
+post http://localhost:9898/api/controller/deleteController
+Content-Type: application/json
+{ 
+    "ids":[1]  
+}
+
+### 查询控制器
+get http://localhost:9898/api/controller/getControllerInfo?id=1
+
+### 查询控制器列表
+post http://localhost:9898/api/controller/getControllerList
+Content-Type: application/json
+
+{   
+    "version":"v",
+    "pageNum":1,
+    "pageSize":10
+}
+
+

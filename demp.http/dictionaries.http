@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {   
    "code":2,
-   "value":"React",
+   "value":"Vue",
    "description":"React 框架"
 }
 
@@ -12,10 +12,10 @@ Content-Type: application/json
 post http://localhost:9898/api/dictionaries/generateDictionary
 Content-Type: application/json
 
-{   "id":1,
+{   "id":3,
    "code":2,
-   "value":"React111",
-   "description":"React 框架"
+   "value":"Vue",
+   "description":"Vue 框架"
 }
 
 ### 删除字典
@@ -23,7 +23,7 @@ post http://localhost:9898/api/dictionaries/deleteDictionary
 Content-Type: application/json
 
 { 
-    "ids":[1]  
+    "ids":[2]  
 }
 
 ### 查询字典信息
@@ -38,5 +38,6 @@ Content-Type: application/json
     "pageSize":10,
     "code":""
 }
+###
 
-
+get http://localhost:9898/api/dictionaries/cs

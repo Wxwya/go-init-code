@@ -18,3 +18,14 @@ Content-Type: application/json
    "code":401,
    "msg":"Unauthorized"
 }
+### 获取msgCode列表
+
+post http://localhost:9898/api/msgCode/getMsgCodeList
+Content-Type: application/json
+
+{   
+    "msg_key":"u",
+    "code":"401",
+   "pageNum":1,
+    "pageSize":10
+}

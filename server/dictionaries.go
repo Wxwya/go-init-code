@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"xwya/model"
 	"xwya/model/repository"
 	"xwya/server/dop"
@@ -23,11 +22,8 @@ func GetDictionaryList(page *repository.QueryDictionary) (*[]model.Dictionaries,
 	var total int64
 	totalDb := Db.Model(&model.Dictionaries{})
 	listDb := Db
-	fmt.Println(page.Code, "code")
-	if page.Code != 0 {
-		totalDb = totalDb.Where(&model.Dictionaries{Code: page.Code})
-		listDb = listDb.Where(&model.Dictionaries{Code: page.Code})
-	}
+	dop.IsInt(totalDb, "code", page.Code)
+	dop.IsInt(listDb, "code", page.Code)
 	if err := totalDb.Count(&total).Error; err != nil {
 		return &data, &total, err
 	}
@@ -44,4 +40,10 @@ func GetDictionaryInfo(id string) (*model.Dictionaries, error) {
 		return &data, err
 	}
 	return &data, nil
+}
+
+func Cheshi() []string {
+	var data []string
+	Db.Model(&model.Dictionaries{}).Pluck("value", &data)
+	return data
 }

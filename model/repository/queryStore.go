@@ -9,7 +9,7 @@ type QueryProject struct {
 	global.Page
 }
 type QueryDictionary struct {
-	Code uint `json:"code"`
+	Code interface{} `json:"code"`
 	global.Page
 }
 
@@ -21,7 +21,19 @@ type QueryForm struct {
 }
 
 type QueryMsgCode struct {
-	Key  string `json:"key"`
-	Code uint   `json:"code"`
+	MsgKey string      `json:"msg_key"`
+	Code   interface{} `json:"code"`
+	global.Page
+}
+
+type QueryController struct {
+	Version string `json:"version"`
+	global.Page
+}
+
+type QueryControllerProcessor struct {
+	Params   string `json:"params"`
+	FuncName string `json:"func_name"`
+	IsHooks  *bool  `json:"is_hooks"`
 	global.Page
 }

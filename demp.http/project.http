@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
 
-    "project_name":"测试项目3",
+    "project_name":"",
     "description":"测试项目3",
     "sql_host":"127.0.0.1",
     "sql_prot":"3306",
