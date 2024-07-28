@@ -1,6 +1,6 @@
 package model
 
-import "xwya/model/global"
+import "xwya/entity"
 
 /*
 	全局模型
@@ -8,10 +8,10 @@ import "xwya/model/global"
 
 */
 type GlobalModel struct {
-	ID               uint        `json:"id" gorm:"primaryKey;autoIncrement;comment:全局模型的id"`
-	GlobalModelName  string      `json:"global_model_name" gorm:"size:50;not null;comment:全局模型的名称"`
-	GlobalModelLabel string      `json:"global_model_label" gorm:"size:50;not null;comment:全局模型引用显示的名称"`
-	Fields           *[]Field    `json:"fields,omitempty" gorm:"foreignKey:GlobalModelID;constraint:OnDelete:CASCADE;comment:一对多关系"`
-	Repository       *Repository `json:"-" gorm:"constraint:OnDelete:SET NULL;comment:删除模型的时候将引用模型的地方设置为null"`
-	global.Global
+	ID              uint     `json:"id" gorm:"primaryKey;autoIncrement;comment:全局模型的id"`
+	GlobalModelName string   `json:"global_model_name" gorm:"size:50;not null;comment:全局模型的名称"`
+	Fields          *[]Field `json:"fields,omitempty" gorm:"foreignKey:GlobalModelID;constraint:OnDelete:CASCADE;comment:一对多关系"`
+	Entity          Entity   `json:"-" gorm:"constraint:OnDelete:SET NULL;comment:删除模型的时候将引用模型的地方设置为null"`
+	Dict            Dict     `json:"-"  gorm:"polymorphic:Dict;polymorphicValue:sys_go_type"`
+	entity.Global
 }

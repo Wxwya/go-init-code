@@ -5,7 +5,6 @@ import (
 	"time"
 	"xwya/model"
 	"xwya/server"
-	"xwya/server/dop"
 	"xwya/utils"
 
 	"gorm.io/driver/mysql"
@@ -65,25 +64,16 @@ func migrate() {
 	// &model.Repository{},
 
 	server.Db.AutoMigrate(
-		&model.User{},
-		&model.Dictionaries{},
+		&model.Dict{},
 		&model.Project{},
-		&model.Repository{},
-		&model.Form{},
 		&model.GlobalModel{},
+		&model.Entity{},
+		&model.Form{},
 		&model.Field{},
 		&model.MsgCode{},
 		&model.Controller{},
 		&model.ControllerProcessor{},
 	)
-	var count int64
-	server.Db.Model(&model.User{}).Count(&count)
-	// 如果用户表为空，则创建用户
-	if count == 0 {
-		// 创建一个新用户
-		newUser := model.User{Username: "admin", Password: dop.EncryptPassword("123456"), Account: "admin"}
-		server.Db.Create(&newUser)
-	}
 
 }
 

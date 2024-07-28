@@ -1,8 +1,8 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server/dop"
 )
 
@@ -25,13 +25,11 @@ func GetControllerProcessorInfo(id string) (*model.ControllerProcessor, error) {
 	return &info, nil
 }
 
-func GetControllerProcessorList(page *repository.QueryControllerProcessor) (*[]model.ControllerProcessor, *int64, error) {
+func GetControllerProcessorList(page *entity.QueryControllerProcessor) (*[]model.ControllerProcessor, *int64, error) {
 	var list []model.ControllerProcessor
 	var total int64
 	totalDb := Db.Model(&model.ControllerProcessor{})
 	db := Db.Where("params like ? and func_name like ?", "%"+page.Params+"%", "%"+page.FuncName+"%")
-	dop.IsBool(totalDb, "is_hooks", page.IsHooks)
-	dop.IsBool(db, "is_hooks", page.IsHooks)
 	if err := totalDb.Where("params like ? and func_name like ?", "%"+page.Params+"%", "%"+page.FuncName+"%").Count(&total).Error; err != nil {
 		return &list, &total, err
 	}

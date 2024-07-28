@@ -1,11 +1,15 @@
-### 创建字典
+### 创建字典(没问题)
+### CASCADE：删除父表记录时，子表记录也会自动删除。
+###  SET NULL：删除父表记录时，子表记录的关联字段设置为 NULL。
+###  RESTRICT：不允许删除父表记录，若子表记录存在依赖。
+###  NO ACTION：与 RESTRICT 类似，但会推迟检查，可能会在事务提交时失败。
 post http://localhost:9898/api/dictionaries/generateDictionary
 Content-Type: application/json
 
 {   
-   "code":2,
-   "value":"Vue",
-   "description":"React 框架"
+   "label":"sqltype.CustomTime",
+   "dict_type":"sys_go_type",
+   "description":"时间字段"
 }
 
 ### 更新字典

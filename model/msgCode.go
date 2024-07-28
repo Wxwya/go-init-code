@@ -1,6 +1,6 @@
 package model
 
-import "xwya/model/global"
+import "xwya/entity"
 
 /*
 	对应msg文件夹
@@ -13,5 +13,5 @@ type MsgCode struct {
 	Msg     string               `json:"msg" gorm:"not null;comment:返回的内容"`
 	Success *ControllerProcessor `json:"-" gorm:"foreignKey:SuccessCodeID;references:ID; constraint:OnDelete:SET NULL;comment:一对多关系"`
 	Error   *ControllerProcessor `json:"-" gorm:"foreignKey:SuccessCodeID;references:ID; constraint:OnDelete:SET NULL;comment:一对多关系"`
-	global.Global
+	entity.Global
 }

@@ -1,8 +1,8 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server/dop"
 )
 
@@ -25,7 +25,7 @@ func GetControllerInfo(id string) (*model.Controller, error) {
 	return &info, nil
 }
 
-func GetControllerList(page *repository.QueryController) (*[]model.Controller, *int64, error) {
+func GetControllerList(page *entity.QueryController) (*[]model.Controller, *int64, error) {
 	var list []model.Controller
 	var total int64
 	if err := Db.Model(&model.Controller{}).Where("version like ? ", "%"+page.Version+"%").Count(&total).Error; err != nil {

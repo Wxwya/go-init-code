@@ -1,13 +1,13 @@
-### 创建表
+### 创建表(没问题)
 post http://localhost:9898/api/form/generateForm
 Content-Type: application/json
 
 {
-
-    "project_id":2,
-    "form_comment":"这是一张用户表",
-    "form_name":"user"
+    "project_id": 1,
+    "form_comment": "这是一张日志表",
+    "form_name": "Logger"
 }
+
 
 ### 更新表
 post http://localhost:9898/api/form/generateForm

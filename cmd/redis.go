@@ -26,7 +26,6 @@ func InitRedis() {
 func GetConn(db int) *redis.Conn {
 	conn := server.Pool.Get()
 	if _, err := conn.Do("SELECT", db); err != nil {
-		WriteLog(err)
 		return nil
 	}
 	return &conn
@@ -34,7 +33,6 @@ func GetConn(db int) *redis.Conn {
 func CloseRedis() {
 	if server.Pool != nil {
 		if err := server.Pool.Close(); err != nil {
-			WriteLog(err)
 			return
 		}
 		fmt.Println("redis连接已关闭")

@@ -1,12 +1,11 @@
 package v1
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server"
 	"xwya/utils"
 	"xwya/utils/msg"
-	"xwya/utils/msgjson"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,10 +16,10 @@ func GenerateMsgCode(c *gin.Context) {
 		return
 	}
 	if err := server.GenerateMsgCode(&msgCode); err != nil {
-		msgjson.HandleServerError(c)
+		utils.HandleServerError(c, err)
 		return
 	}
-	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
+	utils.HandleResponse(c, msg.Success, nil)
 }
 
 func DeleteMsgCode(c *gin.Context) {
@@ -28,24 +27,24 @@ func DeleteMsgCode(c *gin.Context) {
 	c.ShouldBindJSON(&ids)
 
 	if err := server.DeleteMsgCode(&ids); err != nil {
-		msgjson.HandleServerError(c)
+		utils.HandleServerError(c, err)
 		return
 	}
-	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), nil)
+	utils.HandleResponse(c, msg.Success, nil)
 }
 
 func GetMsgCodeList(c *gin.Context) {
 
-	var page repository.QueryMsgCode
+	var page entity.QueryMsgCode
 	if flag := utils.ShouldBindJSON(c, &page); !flag {
 		return
 	}
 	data, total, err := server.GetMsgCodeList(&page)
 	if err != nil {
-		msgjson.HandleServerError(c)
+		utils.HandleServerError(c, err)
 		return
 	}
-	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), map[string]interface{}{
+	utils.HandleResponse(c, msg.Success, map[string]any{
 		"list":  data,
 		"total": total,
 	})
@@ -54,13 +53,13 @@ func GetMsgCodeList(c *gin.Context) {
 func GetMsgCodeInfo(c *gin.Context) {
 	id := c.Query("id")
 	if id == "" {
-		msgjson.HandleError(c, msg.Error)
+		utils.HandleResponse(c, msg.Error, nil)
 		return
 	}
 	data, err := server.GetMsgCodeInfo(id)
 	if code := utils.IsErrRecordNotFound(err); code != msg.Success {
-		msgjson.HandleError(c, code)
+		utils.HandleResponse(c, code, nil)
 		return
 	}
-	msgjson.HandleSuccess(c, msg.GetMsg(msg.Success), data)
+	utils.HandleResponse(c, msg.Success, data)
 }

@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"strconv"
-	"xwya/utils"
 
-	"github.com/duke-git/lancet/v2/cryptor"
 	"gorm.io/gorm"
 )
 
@@ -16,7 +14,7 @@ func IsBool(db *gorm.DB, key string, flag *bool) {
 		db.Where(whereStr, *flag)
 	}
 }
-func IsInt(db *gorm.DB, key string, v interface{}) {
+func IsInt(db *gorm.DB, key string, v any) {
 	var i float64
 	whereStr := fmt.Sprintf("%s = ?", key)
 
@@ -41,9 +39,4 @@ func IsInt(db *gorm.DB, key string, v interface{}) {
 
 func AddPagination(db *gorm.DB, pageNum, pageSize int, order string) {
 	db.Offset((pageNum - 1) * pageSize).Limit(pageSize).Order("create_time " + order)
-}
-
-// 加密密码
-func EncryptPassword(password string) string {
-	return cryptor.HmacMd5(utils.PassPrefix, password)
 }

@@ -1,26 +1,26 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server/dop"
 )
 
-func GenerateDictionary(data *model.Dictionaries) error {
+func GenerateDictionary(data *model.Dict) error {
 	if data.ID == 0 {
-		return Db.Create(data).Error
+		return Db.Create(&data).Error
 	}
-	return Db.Where(&model.Dictionaries{ID: data.ID}).Updates(data).Error
+	return Db.Where(&model.Dict{ID: data.ID}).Updates(data).Error
 }
 
 func DeleteDictionary(p map[string][]int) error {
-	return Db.Where("id in (?)", p["ids"]).Delete(&model.Dictionaries{}).Error
+	return Db.Where("id in (?)", p["ids"]).Delete(&model.Dict{}).Error
 }
 
-func GetDictionaryList(page *repository.QueryDictionary) (*[]model.Dictionaries, *int64, error) {
-	var data []model.Dictionaries
+func GetDictionaryList(page *entity.QueryDictionary) (*[]model.Dict, *int64, error) {
+	var data []model.Dict
 	var total int64
-	totalDb := Db.Model(&model.Dictionaries{})
+	totalDb := Db.Model(&model.Dict{})
 	listDb := Db
 	dop.IsInt(totalDb, "code", page.Code)
 	dop.IsInt(listDb, "code", page.Code)
@@ -34,8 +34,8 @@ func GetDictionaryList(page *repository.QueryDictionary) (*[]model.Dictionaries,
 	return &data, &total, nil
 }
 
-func GetDictionaryInfo(id string) (*model.Dictionaries, error) {
-	var data model.Dictionaries
+func GetDictionaryInfo(id string) (*model.Dict, error) {
+	var data model.Dict
 	if err := Db.Where("id = ?", id).First(&data).Error; err != nil {
 		return &data, err
 	}
@@ -44,6 +44,6 @@ func GetDictionaryInfo(id string) (*model.Dictionaries, error) {
 
 func Cheshi() []string {
 	var data []string
-	Db.Model(&model.Dictionaries{}).Pluck("value", &data)
+	Db.Model(&model.Dict{}).Pluck("value", &data)
 	return data
 }

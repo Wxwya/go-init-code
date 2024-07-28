@@ -1,8 +1,8 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server/dop"
 )
 
@@ -17,7 +17,7 @@ func DeleteMsgCode(p *map[string][]int) error {
 	return Db.Where("id in (?)", (*p)["ids"]).Delete(&model.MsgCode{}).Error
 }
 
-func GetMsgCodeList(queryInfo *repository.QueryMsgCode) (*[]model.MsgCode, *int64, error) {
+func GetMsgCodeList(queryInfo *entity.QueryMsgCode) (*[]model.MsgCode, *int64, error) {
 	// 查询条件
 	var msgCodes []model.MsgCode
 	var total int64

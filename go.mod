@@ -12,6 +12,7 @@ require (
 	github.com/go-playground/validator/v10 v10.22.0
 	github.com/gomodule/redigo v1.9.2
 	github.com/sirupsen/logrus v1.9.3
+	github.com/sony/sonyflake v1.2.0
 	gopkg.in/ini.v1 v1.67.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.10
@@ -40,6 +41,7 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/exp v0.0.0-20221208152030-732eee02a75a // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
 	golang.org/x/text v0.15.0 // indirect

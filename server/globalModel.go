@@ -1,8 +1,8 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/global"
 	"xwya/server/dop"
 )
 
@@ -17,7 +17,7 @@ func DeleteGlobalModel(p *map[string][]int) error {
 	return Db.Where("id in (?)", (*p)["ids"]).Delete(&model.GlobalModel{}).Error
 }
 
-func GetGlobalModelList(queryInfo *global.Page) (*[]model.GlobalModel, *int64, error) {
+func GetGlobalModelList(queryInfo *entity.Page) (*[]model.GlobalModel, *int64, error) {
 	// 查询条件
 	var globalModels []model.GlobalModel
 	var total int64

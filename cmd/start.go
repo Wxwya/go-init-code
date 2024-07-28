@@ -7,7 +7,6 @@ func Start() {
 	InitMysql()
 	// InitRedis()
 	InitLogger()
-	InitValidate()
 	InitHttp()
 
 }

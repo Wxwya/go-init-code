@@ -1,6 +1,6 @@
 package model
 
-import "xwya/model/global"
+import "xwya/entity"
 
 /*
 	控制器(对应api文件夹)
@@ -11,5 +11,5 @@ type Controller struct {
 	Name        string                 `json:"name" gorm:"type:varchar(30);not null;unique;comment:文件名称"`
 	Description string                 `json:"description" gorm:"type:text;comment:文件描述"`
 	Processors  *[]ControllerProcessor `json:"processors,omitempty" gorm:"foreignKey:ControllerID;constraint:OnDelete:CASCADE;comment:一对多关系"`
-	global.Global
+	entity.Global
 }

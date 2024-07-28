@@ -1,0 +1,31 @@
+### 创建字段
+### "default_value":"0"
+post http://localhost:9898/api/field/generateField
+Content-Type: application/json
+
+{
+  "form_id": 7,
+  "field_type_id": 6,
+  "field_name": "Status ",
+  "auto_increment": false,
+  "is_primary_key":false,
+  "is_val_null": true,
+  "is_query": true,
+  "many":"",
+  "is_pointer": true,
+  "is_add": false,
+  "is_null":true,
+  "field_size":0,
+  "index_name":"",
+  "is_unique":false
+  
+}
+
+### 更新字段
+post http://localhost:9898/api/field/generateField
+Content-Type: application/json
+
+{
+  "id":32,
+  "is_query": false
+}

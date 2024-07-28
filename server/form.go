@@ -1,13 +1,17 @@
 package server
 
 import (
+	"xwya/entity"
 	"xwya/model"
-	"xwya/model/repository"
 	"xwya/server/dop"
 )
 
 func GenerateForm(data *model.Form) error {
 	if data.ID == 0 {
+		data.Dict = []model.Dict{
+			{Code: data.FormName, Description: data.FormName + "表类型", ProjectID: data.ProjectID},
+			{Code: "[]" + data.FormName, Description: data.FormName + "表类型", ProjectID: data.ProjectID},
+		}
 		return Db.Create(data).Error
 	}
 	return Db.Where(&model.Form{ID: data.ID}).Updates(data).Error
@@ -25,7 +29,7 @@ func GetFormInfo(id string) (*model.Form, error) {
 	return &info, nil
 }
 
-func GetFormList(page *repository.QueryForm) (*[]model.Form, *int64, error) {
+func GetFormList(page *entity.QueryForm) (*[]model.Form, *int64, error) {
 	var list []model.Form
 	var total int64
 	if err := Db.Model(&model.Form{}).Where("project_id = ? and form_name like ?", page.ProjectID, "%"+page.FormName+"%").Count(&total).Error; err != nil {

@@ -1,11 +1,11 @@
-### 创建项目信息
+### 创建项目信息(没问题)
 post http://localhost:9898/api/project/generateProject 
 Content-Type: application/json
 
 {
 
-    "project_name":"",
-    "description":"测试项目3",
+    "project_name":"测试项目1",
+    "description":"测试项目",
     "sql_host":"127.0.0.1",
     "sql_prot":"3306",
     "sql_basename":"csxm",
@@ -44,3 +44,9 @@ Content-Type: application/json
 
 ### 获取项目信息
 get http://localhost:9898/api/project/getProjectInfo?id=2
+
+
+
+### 生成代码 
+
+get http://localhost:9898/api/project/generateCode/1

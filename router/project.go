@@ -13,5 +13,6 @@ func initProjectRouter(r *gin.RouterGroup) {
 		projectRouter.POST("deleteProject", v1.DeleteProject)
 		projectRouter.POST("getProjectList", v1.GetProjectList)
 		projectRouter.GET("getProjectInfo", v1.GetProjectInfo)
+		projectRouter.GET("generateCode/:id", v1.GenerateCode)
 	}
 }
