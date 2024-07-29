@@ -11,7 +11,7 @@ Content-Type: application/json
     "sql_basename":"csxm",
     "sql_user":"root",
     "sql_password":"123456",
-    "frame_id":1
+    "frame_type":"Vue"
 }
 
 ### 更新项目信息

@@ -13,8 +13,9 @@ Content-Type: application/json
 post http://localhost:9898/api/form/generateForm
 Content-Type: application/json
 
-{   "id":1,
-    "form_name":"user"
+{   "id":2,
+    "before_creates":"{\"function\":\"BeforeCreate\",\"description\":\"Sets the ID of the role. If the role name is 'admin', the ID is set to a specific value.\",\"steps\":[{\"action\":[{\"operation\":\"GenerateID\",\"result\":\"r.ID\"}]},{\"condition\":\"r.RoleName == 'admin'\",\"action\":[{\"operation\":\"SetID\",\"value\":1887415157}]}]}",
+    "before_deletes":"{\"function\":\"BeforeDelete\",\"description\":\"Prevents deletion of the role with ID 1887415157 (admin).\",\"steps\":[{\"condition\":\"r.ID == 1887415157\",\"action\":[{\"operation\":\"ReturnError\",\"errorMessage\":\"admin user not allowed to delete\"}]}]}"
 }
 
 ### 删除表

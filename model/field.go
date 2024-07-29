@@ -11,17 +11,17 @@ import (
 type Field struct {
 	ID               uint   `json:"id" gorm:"primaryKey;autoIncrement;comment:字段ID"`
 	FormID           *uint  `json:"form_id" gorm:"default:0;index;comment:表单的id"`
-	FieldTypeID      uint   `json:"field_type_id" gorm:"not null;comment:字段类型(通过字典sys_go_type获取)"`
+	FieldType        string `json:"field_type" gorm:"not null;comment:字段类型(通过字典sys_go_type获取)"`
 	FieldName        string `json:"field_name" gorm:"type:varchar(30);not null;comment:字段名称"`
 	FieldSize        *uint  `json:"field_size" gorm:"comment:字段大小"`
 	IsNull           *bool  `json:"is_null" gorm:"default:0;comment:是否为null"`
 	AutoIncrement    *bool  `json:"auto_increment" gorm:"default:0;comment:是否自增"`
 	IsPrimaryKey     *bool  `json:"is_primary_key" gorm:";default:0;comment:是否为主键"`
 	IsUnique         *bool  `json:"is_unique" gorm:"not null;default:0;comment:是否唯一值"`
-	ForeignKey       *bool  `json:"foreign_key" gorm:"not null;default:0;comment:设置外键"`
+	ForeignKey       string `json:"foreign_key" gorm:"not null;comment:设置外键"`
 	References       string `json:"references" gorm:"comment:设置映射"`
 	IndexName        string `json:"index_name" gorm:"comment:索引名称(为复合索引使用)"`
-	IsValNull        *bool  `json:"is_val_null" gorm:"default:true;comment:为空时该字段是否返回"`
+	IsValNull        string `json:"is_val_null" gorm:"default:true;comment:为空时该字段是否返回(走字典sys_json_type)"`
 	GlobalModelID    *uint  `json:"global_model_id" gorm:"index;defautl:0;comment:全局模型ID"`
 	IsQuery          *bool  `json:"is_query" gorm:"default:false;comment:是否是查询字段"`
 	IsPointer        *bool  `json:"is_pointer" gorm:"default:false;comment:是否是指针"`
@@ -40,6 +40,7 @@ type Field struct {
 	EmbeddedPrefix   string `json:"embedded_prefix" gorm:"comment:嵌入字段前缀"`
 	Precision        string `json:"precision" gorm:"comment:设置数字精度"`
 	Scale            string `json:"scale" gorm:"comment:设置数字小数位数"`
+	Comment          string `json:"comment" gorm:"comment:字段注释"`
 	entity.Global
 }
 

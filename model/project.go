@@ -13,7 +13,7 @@ type Project struct {
 	SqlBaseName string `json:"sql_basename" gorm:"type:varchar(50);not null;comment:数据库库名"`
 	SqlUser     string `json:"sql_user" gorm:"type:varchar(30);not null;comment:数据库账号"`
 	SqlPassword string `json:"sql_password" gorm:"type:varchar(30);not null;comment:数据库密码"`
-	FrameID     uint   `json:"frame_id,omitempty" gorm:"index:idx_projectname_sqlhost_frame_id;comment:前端使用的端架"`
+	FrameType   string `json:"frame_type,omitempty" gorm:"index:idx_projectname_sqlhost_frame_id;comment:前端使用的端架"`
 	Forms       []Form `json:"forms,omitempty" gorm:"constraint:OnDelete:CASCADE;comment:一对多关系"`
 	entity.Global
 }

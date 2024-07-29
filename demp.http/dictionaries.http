@@ -7,9 +7,10 @@ post http://localhost:9898/api/dictionaries/generateDictionary
 Content-Type: application/json
 
 {   
-   "label":"sqltype.CustomTime",
-   "dict_type":"sys_go_type",
-   "description":"时间字段"
+  "dict_value":"omitempty",
+   "dict_label":"omitempty",
+   "dict_type":"sys_json_type",
+   "description":""
 }
 
 ### 更新字典

@@ -9,8 +9,8 @@ import (
 func GenerateForm(data *model.Form) error {
 	if data.ID == 0 {
 		data.Dict = []model.Dict{
-			{Code: data.FormName, Description: data.FormName + "表类型", ProjectID: data.ProjectID},
-			{Code: "[]" + data.FormName, Description: data.FormName + "表类型", ProjectID: data.ProjectID},
+			{DictLabel: data.FormName, Description: data.FormName + "表类型", DictValue: data.FormName, ProjectID: data.ProjectID},
+			{DictLabel: "[]" + data.FormName, Description: data.FormName + "表类型", DictValue: "[]" + data.FormName, ProjectID: data.ProjectID},
 		}
 		return Db.Create(data).Error
 	}

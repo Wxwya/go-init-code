@@ -3,6 +3,7 @@ package v1
 import (
 	"xwya/entity"
 	"xwya/model"
+	"xwya/script"
 	"xwya/server"
 	"xwya/utils"
 	"xwya/utils/msg"
@@ -74,5 +75,6 @@ func GenerateCode(c *gin.Context) {
 		utils.HandleResponse(c, code, nil)
 		return
 	}
+	script.InitProject(data)
 	utils.HandleResponse(c, msg.Success, data)
 }

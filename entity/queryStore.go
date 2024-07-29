@@ -7,7 +7,7 @@ type QueryProject struct {
 	Page
 }
 type QueryDictionary struct {
-	Code any `json:"code"`
+	DictType any `json:"dict"`
 	Page
 }
 

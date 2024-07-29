@@ -4,21 +4,20 @@ post http://localhost:9898/api/field/generateField
 Content-Type: application/json
 
 {
-  "form_id": 7,
-  "field_type_id": 6,
-  "field_name": "Status ",
+  "form_id": 1,
+  "field_type": "[]Role",
+  "field_name": "[]Role",
   "auto_increment": false,
   "is_primary_key":false,
-  "is_val_null": true,
+  "is_val_null": "-",
   "is_query": true,
-  "many":"",
-  "is_pointer": true,
+  "many":"business_user_role",
+  "is_pointer": false,
   "is_add": false,
-  "is_null":true,
+  "is_null":false,
   "field_size":0,
   "index_name":"",
   "is_unique":false
-  
 }
 
 ### 更新字段
@@ -26,6 +25,7 @@ post http://localhost:9898/api/field/generateField
 Content-Type: application/json
 
 {
-  "id":32,
-  "is_query": false
+  "id":18,
+   "field_type": "[]Role",
+  "field_name": "Role"
 }

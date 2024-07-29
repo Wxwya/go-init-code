@@ -15,7 +15,7 @@ type Form struct {
 	ProjectID     uint    `json:"project_id"  gorm:"index:idx_form_projeceid_formname;comment:项目ID"`
 	FormName      string  `json:"form_name" gorm:"index:idx_form_projeceid_formname;size:100;not null;comment:表名"`
 	FormComment   string  `json:"form_comment" gorm:"comment:描述"`
-	IsChange      *bool   `json:"is_change,omitempty"  gorm:"default:true;comment:判断是否修改"`
+	IsChange      *bool   `json:"is_change,omitempty"  gorm:"default:false;comment:判断是否修改"`
 	Fields        []Field `json:"fields,omitempty" gorm:"constraint:OnDelete:CASCADE;comment:一对多关系"`
 	BeforeCreates string  `json:"before_creates" gorm:"type:text;comment:钩子函数创建前"`
 	AfterCreates  string  `json:"after_creates" gorm:"type:text;comment:钩子函数创建后"`

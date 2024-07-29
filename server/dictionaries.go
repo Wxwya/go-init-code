@@ -22,8 +22,8 @@ func GetDictionaryList(page *entity.QueryDictionary) (*[]model.Dict, *int64, err
 	var total int64
 	totalDb := Db.Model(&model.Dict{})
 	listDb := Db
-	dop.IsInt(totalDb, "code", page.Code)
-	dop.IsInt(listDb, "code", page.Code)
+	dop.IsInt(totalDb, "dict_type", page.DictType)
+	dop.IsInt(listDb, "dict_type", page.DictType)
 	if err := totalDb.Count(&total).Error; err != nil {
 		return &data, &total, err
 	}
@@ -40,6 +40,14 @@ func GetDictionaryInfo(id string) (*model.Dict, error) {
 		return &data, err
 	}
 	return &data, nil
+}
+
+func GetDictionaryOption() (data []map[string]any, err error) {
+	return data, Db.Model(&model.Dict{}).Select("dict_value as value, dict_label as label").Scan(&data).Error
+}
+
+func GetDictionaryLabel(t, v string) (label string, err error) {
+	return label, Db.Model(&model.Dict{}).Select("dict_label").Where("dict_type = ? and dict_value = ?", t, v).Scan(&label).Error
 }
 
 func Cheshi() []string {
